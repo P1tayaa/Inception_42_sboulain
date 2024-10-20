@@ -1,13 +1,13 @@
 version: "3"
 
-# volumes:
-#         wordpress:
-#               name: wordpress
-#               driver: local
-#               driver_opts:
-#                     device: /goinfre/sboulain/Inception_42_sboulain/src/wordpress
-#                     o: bind
-#                     type: none
+volumes:
+        wordpress:
+              name: wordpress
+              driver: local
+              driver_opts:
+                    device: /goinfre/sboulain/Inception_42_sboulain/src/wordpress
+                    o: bind
+                    type: none
 #         mariadb:
 #               name: mariadb
 #               driver: local
@@ -23,15 +23,27 @@ services:
     image: nginx:42
     ports:
       - "443:443"
-    # depends_on:
-    #   - wordpress
-    # volumes:
-    #   - wordpress:/var/www/html
+    depends_on:
+      - wordpress
+    volumes:
+      - wordpress:/var/www/html
     networks:
       - network
-    # env_file:
-    #   - .env
+    env_file:
+      - .env
     restart: always
+  wordpress:
+    container_name: wordpress
+    build: ./requirements/wordpress
+    dockerfile: Dockerfile
+    restart: always
+    env_file:
+      - .env
+    networks:
+      - network
+    volumes:
+      - wordpress:/var/www/html
+    
 networks:
   network:
     driver: bridge
