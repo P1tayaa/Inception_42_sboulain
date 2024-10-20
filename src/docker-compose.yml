@@ -5,7 +5,7 @@ volumes:
               name: wordpress
               driver: local
               driver_opts:
-                    device: /goinfre/sboulain/Inception_42_sboulain/src/wordpress
+                    device: /home/sboulain/Inception_42_sboulain/data/wordpress
                     o: bind
                     type: none
 #         mariadb:
@@ -35,7 +35,6 @@ services:
   wordpress:
     container_name: wordpress
     build: ./requirements/wordpress
-    dockerfile: Dockerfile
     restart: always
     env_file:
       - .env
