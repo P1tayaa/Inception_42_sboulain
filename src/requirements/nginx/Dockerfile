@@ -1,7 +1,9 @@
 FROM debian:buster
 
-RUN apt-get update
-RUN apt-get install -y nginx openssl
+RUN apt-get update && apt-get install -y apt-transport-https
+RUN apt -y update
+RUN apt install -y nginx
+RUN apt install -y openssl
 
 RUN mkdir /etc/nginx/ssl
 # RUN openssl req -newkey
