@@ -17,4 +17,4 @@ COPY ./wp-config.php /var/www/html/
 
 COPY ./set.py /
 
-CMD ["python3", "/script.py"]
+CMD ["python3", "/set.py"]

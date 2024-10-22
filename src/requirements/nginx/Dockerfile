@@ -1,8 +1,8 @@
 FROM debian:bullseye
 
-RUN apt -y update
-RUN apt install -y nginx
-RUN apt install -y openssl
+RUN apt-get -y update
+RUN apt-get install -y nginx
+RUN apt-get install -y openssl
 
 RUN mkdir /etc/nginx/ssl
 RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes \
@@ -10,9 +10,11 @@ RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes \
        -keyout /etc/nginx/ssl/sboulain.key \
        -subj "/C=NL/ST=Amsterdam/L=Amsterdam/O=Codam/OU=sboulain/CN=sboulain/"
 
-COPY ./conf/nginx.conf /etc/nginx/conf.debian
+# COPY ./conf/nginx.conf /etc/nginx/conf.debian
 
-RUN mkdir -p /run/nginx
 EXPOSE 443
+COPY setup.sh /
 
-CMD [nginx, -g, daemon off;]
+RUN chmod +x setup.sh
+
+CMD ["/setup.sh"]
