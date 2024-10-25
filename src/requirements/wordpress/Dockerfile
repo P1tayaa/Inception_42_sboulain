@@ -1,7 +1,7 @@
 FROM debian:bullseye
 
 RUN apt-get update -y && apt-get install -y \
-    curl python3 \
+    curl \
     php-fpm php-redis \
     php-mysql wordpress \
     && apt-get clean
@@ -13,8 +13,10 @@ RUN chmod 777 /var/www/html \
     mv wp-cli.phar /usr/local/bin/wp \
     && wp core download --path=/var/www/html/ --allow-root
 
-COPY ./wp-config.php /var/www/html/
+COPY ./wp-config.php /
 
-COPY ./set.py /
+COPY ./setup.sh /
 
-CMD ["python3", "/set.py"]
+RUN chmod +x setup.sh
+
+CMD ["/setup.sh"]
