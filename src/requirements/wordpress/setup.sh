@@ -19,11 +19,14 @@ wp core download --allow-root
 
 # mv /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
 
-sed -i -r "s/MYSQL_DATABASE_NAME/$MYSQL_DATABASE_NAME/1" wp-config.php
-sed -i -r "s/MYSQL_USER/$MYSQL_USER/1" wp-config.php
-sed -i -r "s/MYSQL_PASSWORD/$MYSQL_PASSWORD/1" wp-config.php
+sed -i "s/MYSQL_DATABASE_NAME/$MYSQL_DATABASE_NAME/1" wp-config.php
+sed -i "s/MYSQL_USER/$MYSQL_USER/1" wp-config.php
+sed -i "s/MYSQL_PASSWORD/$MYSQL_PASSWORD/1" wp-config.php
 
-pwd
+# pwd
+# sleep 5
+# wp config create --dbname=$MYSQL_DATABASE_NAME --dbuser=$MYSQL_USER --dbpass=$MYSQL_PASSWORD --dbhost=mariadb --allow-root
+# sleep 5
 
 cat wp-config.php
 
