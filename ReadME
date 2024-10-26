@@ -28,7 +28,9 @@ Ensure you have **Docker** and **Docker Compose** installed:
 
 1. **Clone the repository**:
    ```bash
+```
    git clone https://github.com/your-username/inception-42.git
 2. **Lunch the Docker Compose with Makefile**:
    ```bash
    make
+```
