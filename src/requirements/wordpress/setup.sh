@@ -5,6 +5,9 @@ ping_mariadb_container() {
   return $?                      # return the exit status of the ping command
 }
 
+
+
+
 mkdir /var/www
 mkdir /var/www/html
 
@@ -15,6 +18,7 @@ cd /var/www/html
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
 chmod +x wp-cli.phar
+chmod +x /var/www/html/wp-config.php
 
 mv wp-cli.phar /usr/local/bin/wp
 
@@ -31,6 +35,8 @@ while [ 0 -eq 0 ]; do
   fi
 done
 
+sleep 5
+
 # sed -i "s/MYSQL_DATABASE_NAME/$MYSQL_DATABASE_NAME/1" wp-config.php
 # sed -i "s/MYSQL_USER/$MYSQL_USER/1" wp-config.php
 # sed -i "s/MYSQL_PASSWORD/$MYSQL_PASSWORD/1" wp-config.php
@@ -46,7 +52,7 @@ if [ ! -f "/var/www/html/wp-config.php" ]; then
   echo "[CREATING WP CONFIG]"
   wp core config --path="/var/www/html" --dbhost=mariadb:3306 --dbname="$MYSQL_DATABASE_NAME" --dbuser="$MYSQL_USER" --dbpass="$MYSQL_PASSWORD" --allow-root
   echo "[CREATING WP CORE]"
-  wp core install --path="/var/www/html" --url=$DOMAIN_NAME/ --title=$WP_TITLE --admin_user=$WP_ADMIN_USER --admin_password=$WP_ADMIN_PASSWORD --admin_email=$WP_ADMIN_EMAIL --skip-email --allow-root
+  wp core install --path="/var/www/html" --url="$WP_URL" --title=$WP_TITLE --admin_user=$WP_ADMIN_USER --admin_password=$WP_ADMIN_PASSWORD --admin_email=$WP_ADMIN_EMAIL --skip-email --allow-root
   echo "[CREATING WP USER]"
   wp user create --path="/var/www/html" $WP_USER $WP_EMAIL --role=author --user_pass=$WP_PASSWORD --allow-root
 else
@@ -67,5 +73,7 @@ mkdir -p /run/php
 # wp redis enable --allow-root
 
 # service php7.4-fpm stop
+
+chmod -R 755 /var/www/html/
 
 exec /usr/sbin/php-fpm7.4 -F

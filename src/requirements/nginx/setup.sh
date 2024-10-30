@@ -5,10 +5,10 @@ server {
     listen 443 ssl;
     listen [::]:443 ssl;
 
-    ssl_certificate $CERTS_;
+    ssl_certificate /etc/nginx/ssl/sboulain.crt;
     ssl_certificate_key /etc/nginx/ssl/sboulain.key;
 
-    server_name $DOMAIN_NAME www.$DOMAIN_NAME;
+    # server_name www.$DOMAIN_NAME $DOMAIN_NAME;
 
     ssl_protocols TLSv1.3;
 
@@ -24,4 +24,3 @@ echo '
 }
 ' >> /etc/nginx/sites-available/default
 
-nginx -g "daemon off;"
