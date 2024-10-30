@@ -5,7 +5,7 @@ RUN apt-get install -y mariadb-server -y
 # RUN apt-get install -y mysql-server -y
 
 # COPY setup.sh /
-COPY sql.conf /etc/mysql/mariadb.conf.d/
+COPY 50-server.cnf /etc/mysql/mariadb.conf.d/
 
 # RUN chmod +x setup.sh
 

@@ -3,7 +3,7 @@ FROM debian:bullseye
 RUN apt-get update -y && apt-get install -y \
     curl \
     php-fpm php-redis \
-    php-mysql wordpress \
+    php-mysql wordpress netcat \
     && apt-get clean
 
 RUN chmod 777 /var/www/html \
@@ -13,7 +13,7 @@ RUN chmod 777 /var/www/html \
     mv wp-cli.phar /usr/local/bin/wp \
     && wp core download --path=/var/www/html/ --allow-root
 
-COPY ./wp-config.php /
+# COPY ./wp-config.php /
 
 COPY ./setup.sh /
 
