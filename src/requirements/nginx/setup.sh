@@ -1,5 +1,7 @@
 #!/bin/bash
 
+rm -rf /etc/nginx/sites-available/default.conf
+
 echo "
 server {
     listen 443 ssl;
